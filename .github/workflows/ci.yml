@@ -1,12 +1,13 @@
 name: Build all driver samples
 on:
-  push:
-    branches:
-      - main
-      - develop
-    paths-ignore:
-      - '**.md'
-      - 'LICENSE'
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
+  #     - develop
+  #   paths-ignore:
+  #     - '**.md'
+  #     - 'LICENSE'
 jobs:
   build:
     name: Build driver samples
@@ -15,7 +16,8 @@ jobs:
       matrix:
         configuration: [Debug, Release]
         platform: [x64, arm64]
-    runs-on: windows-2022
+        runson: [windows-2022, windows-2025]
+    runs-on: ${{ matrix.runson }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
